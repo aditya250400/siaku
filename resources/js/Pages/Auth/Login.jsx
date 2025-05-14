@@ -93,7 +93,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             </div>
             <div className="hidden bg-muted lg:block">
-                <img src="/images/bg-login.webp" alt="login" className="h-full max-h-screen w-full object-cover" />
+                <img src="/images/bg-login.webp" alt="login" className="h-full w-full object-cover" />
             </div>
         </div>
     );
