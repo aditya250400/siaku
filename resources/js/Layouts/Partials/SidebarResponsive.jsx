@@ -74,7 +74,14 @@ export default function SidebarResponsive({ url }) {
 
                 {/* Lainnya */}
                 <div className="px-3 py-2 text-base font-medium text-white">Lainnya</div>
-                <NavLink url="#" active={url.startsWith('/logout')} title={'Logout'} icon={IconLogout2} />
+                <NavLink
+                    url={route('logout')}
+                    method="post"
+                    as="button"
+                    active={url.startsWith('/logout')}
+                    title={'Logout'}
+                    icon={IconLogout2}
+                />
             </ul>
         </nav>
     );
