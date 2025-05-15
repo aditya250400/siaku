@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status')->default(FeeStatus::PENDING->value);
             $table->foreignId('fee_group_id')->constrained()->cascadeOnDelete();
             $table->foreignId('academic_year_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
