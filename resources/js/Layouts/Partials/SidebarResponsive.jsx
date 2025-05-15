@@ -1,5 +1,5 @@
 import NavLink from '@/Components/NavLink';
-import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Link } from '@inertiajs/react';
 import {
     IconBooks,
@@ -28,11 +28,12 @@ export default function SidebarResponsive({ url, auth }) {
                         href={'#'}
                     >
                         <Avatar>
-                            <AvatarFallback>L</AvatarFallback>
+                            <AvatarImage src={auth.user.avatar} />
+                            <AvatarFallback>{auth.user.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col text-left">
-                            <span className="truncate font-bold">Luffy</span>
-                            <span className="truncate">Admin</span>
+                            <span className="truncate font-bold">{auth.user.name}</span>
+                            <span className="truncate">{auth.user.role_name}</span>
                         </div>
                     </Link>
                 </li>
