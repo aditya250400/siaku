@@ -42,6 +42,18 @@ class AuthenticatedSessionController extends Controller
         } else if (auth()->user()->hasRole('Operator')) {
             return redirect()->intended(route('operators.dashboard', absolute: false));
         }
+
+        // if (auth()->user()->hasRole('Admin')) {
+        //     return redirect()->route('admin.dashboard');
+        // } else if (auth()->user()->hasRole('Student')) {
+        //     return redirect()->route('students.dashboard');
+        // } else if (auth()->user()->hasRole('Teacher')) {
+        //     return redirect()->route('teachers.dashboard');
+        // } else if (auth()->user()->hasRole('Operator')) {
+        //     return redirect()->route('operators.dashboard');
+        // }
+
+        // return redirect('/');
     }
 
     /**
