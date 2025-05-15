@@ -41,7 +41,7 @@ export default function SidebarResponsive({ url, auth }) {
                     <>
                         {/* dashboard */}
                         <NavLink
-                            url="#"
+                            url={route('admin.faculties.index')}
                             active={url.startsWith('/admin/dashboard')}
                             title={'Dashboard'}
                             icon={IconLayout2}

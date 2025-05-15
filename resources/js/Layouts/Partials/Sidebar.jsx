@@ -51,7 +51,7 @@ export default function Sidebar({ auth, url }) {
                         {/* master */}
                         <div className="px-3 py-2 text-base font-medium text-white">Master</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.faculties.index')}
                             active={url.startsWith('/admin/faculties')}
                             title={'Fakultas'}
                             icon={IconBuildingSkyscraper}

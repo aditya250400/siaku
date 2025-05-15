@@ -1,8 +1,9 @@
-import { router } from "@inertiajs/react";
-import { clsx } from "clsx";
-import { format } from "date-fns";
-import { toast } from "sonner";
-import { twMerge } from "tailwind-merge";
+import { router } from '@inertiajs/react';
+import { clsx } from 'clsx';
+import { format, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
+import { toast } from 'sonner';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs) {
     return twMerge(clsx(inputs));
@@ -22,7 +23,7 @@ export const deleteAction = (url, { closeModal, ...options } = {}) => {
                 toast[flash.type](flash.message);
             }
 
-            if (closeModal && typeof closeModal === "function") {
+            if (closeModal && typeof closeModal === 'function') {
                 closeModal();
             }
         },
@@ -33,13 +34,13 @@ export const deleteAction = (url, { closeModal, ...options } = {}) => {
 };
 
 export const formatDateIndo = (dateString) => {
-    return format(parseISO(dateString), "eeee, dd MMM yyy", { locale: id });
+    return format(parseISO(dateString), 'eeee, dd MMM yyy', { locale: id });
 };
 
 export const formatToRupiah = (amount) => {
-    const formatter = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
+    const formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     });
@@ -48,33 +49,32 @@ export const formatToRupiah = (amount) => {
 };
 
 export const STUDYPLANSTATUS = {
-    PENDING: "Pending",
-    REJECT: "Reject",
-    APPROVED: "Approved",
+    PENDING: 'Pending',
+    REJECT: 'Reject',
+    APPROVED: 'Approved',
 };
 
 export const STUDYPLANSTATUSVARIANT = {
-    [STUDYPLANSTATUS.PENDING]: "secondary",
-    [STUDYPLANSTATUS.REJECT]: "destructive",
-    [STUDYPLANSTATUS.APPROVED]: "success",
+    [STUDYPLANSTATUS.PENDING]: 'secondary',
+    [STUDYPLANSTATUS.REJECT]: 'destructive',
+    [STUDYPLANSTATUS.APPROVED]: 'success',
 };
 
 export const FEESTATUS = {
-    PENDING: "Tertunda",
-    SUCCESS: "Sukses",
-    FAILED: "Gagal",
+    PENDING: 'Tertunda',
+    SUCCESS: 'Sukses',
+    FAILED: 'Gagal',
 };
 
 export const FEESTATUSVARIANT = {
-    [FEESTATUS.PENDING]: "secondary",
-    [FEESTATUS.SUCCESS]: "success",
-    [FEESTATUS.FAILED]: "destructive",
+    [FEESTATUS.PENDING]: 'secondary',
+    [FEESTATUS.SUCCESS]: 'success',
+    [FEESTATUS.FAILED]: 'destructive',
 };
 
 export const feeCodeGenerator = () => {
-    const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
 
     for (let i = 0; i <= 6; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
