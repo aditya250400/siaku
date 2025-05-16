@@ -50,7 +50,7 @@ export default function SidebarResponsive({ url, auth }) {
                         {/* master */}
                         <div className="px-3 py-2 text-base font-medium text-white">Master</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.faculties.index')}
                             active={url.startsWith('/admin/faculties')}
                             title={'Fakultas'}
                             icon={IconBuildingSkyscraper}
@@ -62,7 +62,7 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconSchool}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.academic-years.index')}
                             active={url.startsWith('/admin/academic-years')}
                             title={'Tahun Ajaran'}
                             icon={IconCalendarTime}
