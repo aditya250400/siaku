@@ -42,7 +42,7 @@ export default function Sidebar({ auth, url }) {
                     <>
                         {/* dashboard */}
                         <NavLink
-                            url="#"
+                            url={route('admin.dashboard')}
                             active={url.startsWith('/admin/dashboard')}
                             title={'Dashboard'}
                             icon={IconLayout2}
@@ -57,8 +57,8 @@ export default function Sidebar({ auth, url }) {
                             icon={IconBuildingSkyscraper}
                         />
                         <NavLink
-                            url="#"
-                            active={url.startsWith('/admin/departemens')}
+                            url={route('admin.departements.index')}
+                            active={url.startsWith('/admin/departements')}
                             title={'Program Studi'}
                             icon={IconSchool}
                         />
