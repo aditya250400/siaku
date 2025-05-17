@@ -125,7 +125,7 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconMoneybag}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.fee-groups.index')}
                             active={url.startsWith('/admin/fee-groups')}
                             title={'Golongan UKT'}
                             icon={IconDroplets}
