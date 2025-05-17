@@ -20,8 +20,6 @@ export default function Create(props) {
         _method: props.page_setting.method,
     });
 
-    console.log(props);
-
     const onHandleReset = () => reset();
 
     const onHandleSubmit = (e) => {
