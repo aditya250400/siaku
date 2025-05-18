@@ -12,7 +12,15 @@ import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import {
+    IconArrowsDownUp,
+    IconDoor,
+    IconPencil,
+    IconPlus,
+    IconRefresh,
+    IconTrash,
+    IconUsersGroup,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -179,12 +187,21 @@ export default function Index(props) {
 
                                             <TableCell>
                                                 <div className="flex items-center gap-x-1">
+                                                    <Button variant="purple" size="sm" asChild>
+                                                        <Link
+                                                            href={route('admin.classroom-students.index', [classroom])}
+                                                        >
+                                                            <IconUsersGroup size="4" />
+                                                            Lihat Kelas
+                                                        </Link>
+                                                    </Button>
                                                     <Button variant="blue" size="sm" asChild>
                                                         <Link href={route('admin.classrooms.edit', [classroom])}>
                                                             <IconPencil size="4" />
                                                             Edit
                                                         </Link>
                                                     </Button>
+
                                                     <AlertAction
                                                         trigger={
                                                             <Button variant="red" size="sm">

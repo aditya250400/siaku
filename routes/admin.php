@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ClassroomController;
+use App\Http\Controllers\Admin\ClassroomStudentController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FacultyController;
@@ -84,5 +85,12 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('students/edit/{student:student_number}', 'edit')->name('admin.students.edit');
         Route::put('students/edit/{student:student_number}', 'update')->name('admin.students.update');
         Route::delete('students/destroy/{student:student_number}', 'destroy')->name('admin.students.destroy');
+    });
+
+    // assign student to classroom
+    Route::controller(ClassroomStudentController::class)->group(function () {
+        Route::get('classrooms/students/{classroom:slug}', 'index')->name('admin.classroom-students.index');
+        Route::put('classrooms/students/{classroom:slug}/sync', 'sync')->name('admin.classroom-students.sync');
+        Route::delete('classrooms/students/{classroom:slug}/destroy/{student:student_number}', 'destroy')->name('admin.classroom-students.destroy');
     });
 });

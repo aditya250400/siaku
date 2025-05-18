@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 export default function Edit(props) {
     const { data, setData, post, errors, processing, reset } = useForm({
         faculty_id: props.classroom.faculty_id ?? null,
-        departement_id: props.classroom.faculty_id ?? null,
+        departement_id: props.classroom.departement_id ?? null,
         academic_year_id: props.academic_year.name,
         name: props.classroom.name ?? '',
         _method: props.page_setting.method,
