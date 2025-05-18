@@ -90,7 +90,7 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'avatar' => $this->upload_file($request, 'avatar', 'users'),
+                'avatar' => $this->upload_file($request, 'avatar', 'students'),
             ]);
 
             $user->student()->create([
@@ -166,7 +166,7 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $request->password ? Hash::make($request->password) : $student->user->password,
-                'avatar' => $this->update_file($request, $student->user, 'avatar', 'users'),
+                'avatar' => $this->update_file($request, $student->user, 'avatar', 'students'),
             ]);
 
 

@@ -5,14 +5,16 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StudentRequest extends FormRequest
+class TeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return  auth()->check() && auth()->user()->hasRole('Admin');
+        return auth()->check() && auth()->user()->hasRole(
+            'Admin'
+        );
     }
 
     /**
@@ -28,9 +30,9 @@ class StudentRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->student?->user),
+                Rule::unique('users')->ignore($this->teacher?->user),
             ],
-            'password' => $this->routeIs('admin.students.store')
+            'password' => $this->routeIs('admin.teachers.store')
                 ? ['required', 'string', 'min:4', 'max:255']
                 : ['nullable', 'string', 'min:4', 'max:255'],
             'faculty_id' => [
@@ -41,22 +43,12 @@ class StudentRequest extends FormRequest
                 'required',
                 'exists:departements,id'
             ],
-            'fee_group_id' => [
-                'required',
-                'exists:fee_groups,id'
-            ],
-            'classroom_id' => [
-                'required',
-                'exists:classrooms,id'
-            ],
-            'student_number' => $this->routeIs('admin.students.store') ? 'required|string|max:13|unique:students' : 'required|string|max:13',
-            'semester' => 'required|integer|',
-            'batch' => 'required|integer|',
-            'avatar' => 'nullable|mimes:png,jpg,webp',
+            'teacher_number' => $this->routeIs('admin.teachers.store') ? 'required|string|max:13|unique:teachers' : 'required|string|max:13',
+            'academic_title' => 'required|string|min:3|max:255',
+            'avatar' => 'nullable|mimes:png,jpg,webp,jpeg',
 
         ];
     }
-
 
     public function attributes()
     {
@@ -66,10 +58,9 @@ class StudentRequest extends FormRequest
             'password' => 'password',
             'faculty_id' => 'Fakultas',
             'departement_id' => 'Program Studi',
-            'fee_group_id' => 'Golongan UKT',
-            'student_number' => 'Nomor Induk Mahasiswa',
-            'batch' => 'Angkatan',
-            'classroom_id' => 'Kelas',
+            'teacher_number' => 'Nomor Induk Dosen',
+            'academic_title' => 'Jabatan Akademik',
+            'avatar' => 'Avatar'
         ];
     }
 }
