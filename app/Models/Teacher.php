@@ -28,7 +28,7 @@ class Teacher extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
-                'academix_title',
+                'academic_title',
                 'teacher_number',
             ], 'REGEXP', $search)
                 ->orWhereHas('user', fn($query) => $query->whereAny(['name', 'email'], 'REGEXP', $search))

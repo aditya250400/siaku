@@ -8,7 +8,7 @@ enum ScheduleDay: string
     case SELASA = 'Selasa';
     case RABU =  'Rabu';
     case KAMIS = 'Kamis';
-    case JUMAT = 'Jum"at';
+    case JUMAT = 'Jum\'at';
     case SABTU = 'Sabtu';
     case MINGGU = 'Minggu';
 

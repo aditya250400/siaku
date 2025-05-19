@@ -81,7 +81,7 @@ export default function Index(props) {
                             />
                         ) : (
                             <>
-                                <div className="grid grid-cols-4 gap-4">
+                                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                                     {Array.from({ length: 20 }).map((_, index) => {
                                         const student = classroomsStudents[index];
                                         return student ? (
