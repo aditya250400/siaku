@@ -105,7 +105,7 @@ export default function Sidebar({ auth, url }) {
                         {/* Akademik */}
                         <div className="px-3 py-2 text-base font-medium text-white">Akademik</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.courses.index')}
                             active={url.startsWith('/admin/courses')}
                             title={'Matakuliah'}
                             icon={IconBooks}
