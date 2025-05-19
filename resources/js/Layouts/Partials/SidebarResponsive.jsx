@@ -111,7 +111,7 @@ export default function SidebarResponsive({ url, auth }) {
                         />
                         <NavLink
                             url={route('admin.schedules.index')}
-                            active={url.startsWith('/admin/shcedules')}
+                            active={url.startsWith('/admin/schedules')}
                             title={'Jadwal'}
                             icon={IconCalendar}
                         />
@@ -119,7 +119,7 @@ export default function SidebarResponsive({ url, auth }) {
                         {/* Pembayaran */}
                         <div className="px-3 py-2 text-base font-medium text-white">Pembayaran</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.fees.index')}
                             active={url.startsWith('/admin/fees')}
                             title={'Uang Kuliah Tunggal'}
                             icon={IconMoneybag}

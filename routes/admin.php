@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FacultyController;
+use App\Http\Controllers\Admin\FeeController;
 use App\Http\Controllers\Admin\FeeGroupController;
 use App\Http\Controllers\Admin\OperatorController;
 use App\Http\Controllers\Admin\RoleController;
@@ -129,6 +130,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::delete('courses/destroy/{course:code}', 'destroy')->name('admin.courses.destroy');
     });
 
+    // Schedules
     Route::controller(ScheduleController::class)->group(function () {
         Route::get('schedules', 'index')->name('admin.schedules.index');
         Route::get('schedules/create', 'create')->name('admin.schedules.create');
@@ -137,4 +139,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::put('schedules/edit/{schedule}', 'update')->name('admin.schedules.update');
         Route::delete('schedules/destroy/{schedule}', 'destroy')->name('admin.schedules.destroy');
     });
+
+    // Fee
+    Route::get('fees', FeeController::class)->name('admin.fees.index');
 });
