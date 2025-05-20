@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Operator;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassroomRequest extends FormRequest
+class ClassroomOperatorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->hasRole('Admin');
+        return auth()->check() && auth()->user()->hasRole('Operator');
     }
 
     /**
@@ -22,8 +22,6 @@ class ClassroomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'faculty_id' => 'required|exists:faculties,id',
-            'departement_id' => 'required|exists:departements,id',
             'academic_year_id' => 'required|exists:academic_years,name',
             'name' => 'required|string|min:3|max:255',
         ];
@@ -34,7 +32,7 @@ class ClassroomRequest extends FormRequest
         return [
             'faculty_id' => 'Fakultas',
             'departement_id' => 'Program Studi',
-            'academic_year_id' => 'Tahun Ajaran',
+            'academic_year_id' => 'Tahun ajaran',
             'name' => 'Nama Kelas',
         ];
     }

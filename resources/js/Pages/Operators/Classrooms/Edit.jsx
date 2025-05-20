@@ -4,7 +4,6 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
@@ -13,8 +12,6 @@ import { toast } from 'sonner';
 
 export default function Edit(props) {
     const { data, setData, post, errors, processing, reset } = useForm({
-        faculty_id: props.classroom.faculty_id ?? null,
-        departement_id: props.classroom.departement_id ?? null,
         academic_year_id: props.academic_year.name,
         name: props.classroom.name ?? '',
         _method: props.page_setting.method,
@@ -44,7 +41,7 @@ export default function Edit(props) {
                         icon={IconSchool}
                     />
                     <Button asChild variant="blue" size="xl" className="w-full lg:w-auto">
-                        <Link href={route('admin.classrooms.index')}>
+                        <Link href={route('operators.classrooms.index')}>
                             <IconArrowLeft className="size-4" /> Kembali
                         </Link>
                     </Button>
@@ -53,53 +50,6 @@ export default function Edit(props) {
                     <CardContent className="p-6">
                         <form onSubmit={onHandleSubmit}>
                             <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-                                <div className="col-span-full">
-                                    <Label htmlFor="faculty_id">Nama Fakultas</Label>
-                                    <Select
-                                        defaultValue={data.faculty_id}
-                                        onValueChange={(value) => setData('faculty_id', value)}
-                                        id="faculty_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.faculties.find((faculty) => faculty.value == data.faculty_id)
-                                                    ?.label ?? 'Pilih fakultas'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.faculties.map((faculty, index) => (
-                                                    <SelectItem key={index} value={faculty.value}>
-                                                        {faculty.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.faculty_id && <InputError message={errors.faculty_id} />}
-                                </div>
-                                <div className="col-span-full">
-                                    <Label htmlFor="departement_id">Program Studi</Label>
-                                    <Select
-                                        defaultValue={data.departement_id}
-                                        onValueChange={(value) => setData('departement_id', value)}
-                                        id="departement_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.departements.find(
-                                                    (departement) => departement.value == data.departement_id,
-                                                )?.label ?? 'Pilih program studi'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.departements.map((departement, index) => (
-                                                    <SelectItem key={index} value={departement.value}>
-                                                        {departement.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.departement_id && <InputError message={errors.departement_id} />}
-                                </div>
                                 <div className="col-span-full">
                                     <Label htmlFor="departement_id">Tahun Ajaran</Label>
                                     <Input

@@ -174,14 +174,14 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconUsers}
                         />
                         <NavLink
-                            url="#"
+                            url={route('operators.teachers.index')}
                             active={url.startsWith('/operators/teachers')}
                             title={'Dosen'}
                             icon={IconUsersGroup}
                         />
                         <div className="px-3 py-1 text-base font-medium text-white">Akademik</div>
                         <NavLink
-                            url="#"
+                            url={route('operators.classrooms.index')}
                             active={url.startsWith('/operators/classrooms')}
                             title={'Kelas'}
                             icon={IconDoor}

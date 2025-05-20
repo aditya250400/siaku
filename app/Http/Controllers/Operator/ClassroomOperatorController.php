@@ -1,34 +1,39 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Operator;
 
 use App\Enums\MessageType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ClassroomRequest;
-use App\Http\Resources\Admin\ClassroomResource;
+use App\Http\Requests\Operator\ClassroomOperatorRequest;
+use App\Http\Resources\Operator\ClassroomOperatorResource;
 use App\Models\Classroom;
-use App\Models\Departement;
-use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Throwable;
 
-class ClassroomController extends Controller
+class ClassroomOperatorController extends Controller
 {
     public function index()
     {
         $classrooms = Classroom::query()
-            ->select(['id', 'name', 'faculty_id', 'departement_id', 'academic_year_id', 'slug', 'created_at'])
+            ->select(['id', 'name', 'academic_year_id', 'slug', 'created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
-            ->with(['faculty', 'departement', 'academicYear'])
+            ->where('faculty_id', auth()->user()->operator->faculty_id)
+            ->where('departement_id', auth()->user()->operator->departement_id)
+            ->with(['academicYear'])
             ->paginate(request()->load ?? 10);
 
-        return inertia('Admin/Classrooms/Index', [
+
+        $faculty_name = auth()->user()->operator->faculty->name;
+        $departement_name = auth()->user()->operator->departement->name;
+
+
+        return inertia('Operators/Classrooms/Index', [
             'page_setting' => [
                 'title' => 'Kelas',
-                'subtitle' => 'Menampilkan semua data Kelas yang tersedia pada universitas ini'
+                'subtitle' => "Menampilkan Mahasiswa yang ada di Fakultas {$faculty_name} dan program studi {$departement_name}"
             ],
-            'classrooms' => ClassroomResource::collection($classrooms)->additional([
+            'classrooms' => ClassroomOperatorResource::collection($classrooms)->additional([
                 'meta' => [
                     'has_pages' => $classrooms->hasPages(),
                 ],
@@ -43,78 +48,62 @@ class ClassroomController extends Controller
 
     public function create()
     {
-        return inertia('Admin/Classrooms/Create', [
+        return inertia('Operators/Classrooms/Create', [
             'page_setting' => [
                 'title' => 'Tambah Kelas',
                 'subtitle' => 'Buat Kelas baru disini. Klik simpan setelah selesai',
                 'method' => 'POST',
-                'action' => route('admin.classrooms.store')
+                'action' => route('operators.classrooms.store')
             ],
-            'faculties' => Faculty::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
-                'value' => $item->id,
-                'label' => $item->name,
-            ]),
-            'departements' => Departement::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
-                'value' => $item->id,
-                'label' => $item->name,
-            ]),
         ]);
     }
 
-    public function store(ClassroomRequest $request)
+    public function store(ClassroomOperatorRequest $request)
     {
         try {
             Classroom::create([
                 'name' =>  $request->name,
-                'departement_id' => $request->departement_id,
+                'departement_id' => auth()->user()->operator->departement_id,
                 'academic_year_id' => activeAcademicYear()->id,
-                'faculty_id' => $request->faculty_id,
+                'faculty_id' => auth()->user()->operator->faculty_id,
             ]);
 
             flashMessage(MessageType::CREATED->message('Kelas'));
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         }
     }
 
     public function Edit(Classroom $classroom)
     {
-        return inertia('Admin/Classrooms/Edit', [
+        return inertia('Operators/Classrooms/Edit', [
             'page_setting' => [
                 'title' => 'Edit Kelas',
                 'subtitle' => 'Edit Kelas disini. Klik simpan setelah selesai',
                 'method' => 'PUT',
-                'action' => route('admin.classrooms.update', $classroom)
+                'action' => route('operators.classrooms.update', $classroom)
             ],
-            'faculties' => Faculty::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
-                'value' => $item->id,
-                'label' => $item->name,
-            ]),
-            'departements' => Departement::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
-                'value' => $item->id,
-                'label' => $item->name,
-            ]),
             'classroom' => $classroom,
         ]);
     }
 
-    public function update(ClassroomRequest $request, Classroom $classroom)
+    public function update(ClassroomOperatorRequest $request, Classroom $classroom)
     {
         try {
             $classroom->update([
                 'name' =>  $request->name,
-                'departement_id' => $request->departement_id,
-                'faculty_id' => $request->faculty_id,
+                'departement_id' => auth()->user()->operator->departement_id,
                 'academic_year_id' => activeAcademicYear()->id,
+                'faculty_id' => auth()->user()->operator->faculty_id,
             ]);
 
             flashMessage(MessageType::UPDATED->message('Kelas'));
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         }
     }
 
@@ -125,10 +114,10 @@ class ClassroomController extends Controller
 
             $classroom->delete();
             flashMessage(MessageType::DELETED->message('Kelas'));
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
-            return to_route('admin.classrooms.index');
+            return to_route('operators.classrooms.index');
         }
     }
 }

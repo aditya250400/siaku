@@ -12,15 +12,7 @@ import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconDoor,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-    IconUsersGroup,
-} from '@tabler/icons-react';
+import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -35,7 +27,7 @@ export default function Index(props) {
         });
     };
     UseFilter({
-        route: route('admin.classrooms.index'),
+        route: route('operators.classrooms.index'),
         values: params,
         only: ['classrooms'],
     });
@@ -50,7 +42,7 @@ export default function Index(props) {
                         icon={IconDoor}
                     />
                     <Button asChild variant="blue" size="xl" className="w-full lg:w-auto">
-                        <Link href={route('admin.classrooms.create')}>
+                        <Link href={route('operators.classrooms.create')}>
                             <IconPlus className="size-4" /> Tambah
                         </Link>
                     </Button>
@@ -110,30 +102,7 @@ export default function Index(props) {
                                                 </span>
                                             </Button>
                                         </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('faculty_id')}
-                                            >
-                                                Fakultas
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('departement_id')}
-                                            >
-                                                Program Studi
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
+
                                         <TableHead>
                                             <Button
                                                 variant="ghost"
@@ -178,8 +147,6 @@ export default function Index(props) {
                                     {classrooms.map((classroom, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                            <TableCell>{classroom.faculty.name}</TableCell>
-                                            <TableCell>{classroom.departement.name}</TableCell>
                                             <TableCell>{classroom.academicYear.name}</TableCell>
                                             <TableCell>{classroom.name}</TableCell>
 
@@ -187,16 +154,8 @@ export default function Index(props) {
 
                                             <TableCell>
                                                 <div className="flex items-center gap-x-1">
-                                                    <Button variant="purple" size="sm" asChild>
-                                                        <Link
-                                                            href={route('admin.classroom-students.index', [classroom])}
-                                                        >
-                                                            <IconUsersGroup size="4" />
-                                                            Lihat Kelas
-                                                        </Link>
-                                                    </Button>
                                                     <Button variant="blue" size="sm" asChild>
-                                                        <Link href={route('admin.classrooms.edit', [classroom])}>
+                                                        <Link href={route('operators.classrooms.edit', [classroom])}>
                                                             <IconPencil size="4" />
                                                             Edit
                                                         </Link>
@@ -210,7 +169,9 @@ export default function Index(props) {
                                                             </Button>
                                                         }
                                                         action={() =>
-                                                            deleteAction(route('admin.classrooms.destroy', [classroom]))
+                                                            deleteAction(
+                                                                route('operators.classrooms.destroy', [classroom]),
+                                                            )
                                                         }
                                                     />
                                                 </div>
