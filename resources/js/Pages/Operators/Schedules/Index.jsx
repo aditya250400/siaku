@@ -27,7 +27,7 @@ export default function Index(props) {
         });
     };
     UseFilter({
-        route: route('admin.schedules.index'),
+        route: route('operators.schedules.index'),
         values: params,
         only: ['schedules'],
     });
@@ -42,7 +42,7 @@ export default function Index(props) {
                         icon={IconCalendar}
                     />
                     <Button asChild variant="blue" size="xl" className="w-full lg:w-auto">
-                        <Link href={route('admin.schedules.create')}>
+                        <Link href={route('operators.schedules.create')}>
                             <IconPlus className="size-4" /> Tambah
                         </Link>
                     </Button>
@@ -97,30 +97,6 @@ export default function Index(props) {
                                                 onClick={() => onSortable('id')}
                                             >
                                                 #
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('faculty_id')}
-                                            >
-                                                Fakultas
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('departement_id')}
-                                            >
-                                                Program Studi
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
@@ -229,8 +205,6 @@ export default function Index(props) {
                                     {schedules.map((schedule, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                            <TableCell>{schedule.faculty.name}</TableCell>
-                                            <TableCell>{schedule.departement.name}</TableCell>
                                             <TableCell>{schedule.course.name}</TableCell>
                                             <TableCell>{schedule.classroom.name}</TableCell>
                                             <TableCell>{schedule.academicYear.name}</TableCell>
@@ -242,7 +216,7 @@ export default function Index(props) {
                                             <TableCell>
                                                 <div className="flex items-center gap-x-1">
                                                     <Button variant="blue" size="sm" asChild>
-                                                        <Link href={route('admin.schedules.edit', [schedule])}>
+                                                        <Link href={route('operators.schedules.edit', [schedule])}>
                                                             <IconPencil size="4" />
                                                             Edit
                                                         </Link>
@@ -255,7 +229,9 @@ export default function Index(props) {
                                                             </Button>
                                                         }
                                                         action={() =>
-                                                            deleteAction(route('admin.schedules.destroy', [schedule]))
+                                                            deleteAction(
+                                                                route('operators.schedules.destroy', [schedule]),
+                                                            )
                                                         }
                                                     />
                                                 </div>

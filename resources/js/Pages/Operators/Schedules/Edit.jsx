@@ -13,8 +13,6 @@ import { toast } from 'sonner';
 
 export default function Edit(props) {
     const { data, setData, post, errors, processing, reset } = useForm({
-        faculty_id: props.schedule.faculty_id ?? null,
-        departement_id: props.schedule.departement_id ?? null,
         course_id: props.schedule.course_id ?? null,
         classroom_id: props.schedule.classroom_id ?? null,
         start_time: props.schedule.start_time ?? '',
@@ -59,53 +57,6 @@ export default function Edit(props) {
                     <CardContent className="p-6">
                         <form onSubmit={onHandleSubmit}>
                             <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-                                <div className="col-span-full">
-                                    <Label htmlFor="faculty_id">Nama Fakultas</Label>
-                                    <Select
-                                        defaultValue={data.faculty_id}
-                                        onValueChange={(value) => setData('faculty_id', value)}
-                                        id="faculty_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.faculties.find((faculty) => faculty.value == data.faculty_id)
-                                                    ?.label ?? 'Pilih fakultas'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.faculties.map((faculty, index) => (
-                                                    <SelectItem key={index} value={faculty.value}>
-                                                        {faculty.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.faculty_id && <InputError message={errors.faculty_id} />}
-                                </div>
-                                <div className="col-span-full">
-                                    <Label htmlFor="departement_id">Program Studi</Label>
-                                    <Select
-                                        defaultValue={data.departement_id}
-                                        onValueChange={(value) => setData('departement_id', value)}
-                                        id="departement_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.departements.find(
-                                                    (departement) => departement.value == data.departement_id,
-                                                )?.label ?? 'Pilih program studi'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.departements.map((departement, index) => (
-                                                    <SelectItem key={index} value={departement.value}>
-                                                        {departement.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.departement_id && <InputError message={errors.departement_id} />}
-                                </div>
                                 <div className="col-span-full">
                                     <Label htmlFor="course_id">Mata Kuliah</Label>
                                     <Select

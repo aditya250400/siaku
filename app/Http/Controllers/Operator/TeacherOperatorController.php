@@ -38,7 +38,7 @@ class TeacherOperatorController extends Controller
         return inertia('Operators/Teachers/Index', [
             'page_setting' => [
                 'title' => 'Dosen',
-                'subtitle' => "Menampilkan Dosen yang ada di Fakultas {$faculty_name} dan program studi {$departement_name}",
+                'subtitle' => "Menampilkan Dosen yang ada di {$faculty_name} dan program studi {$departement_name}",
             ],
             'teachers' => TeacherOperatorResource::collection($teachers)->additional([
                 'meta' => [

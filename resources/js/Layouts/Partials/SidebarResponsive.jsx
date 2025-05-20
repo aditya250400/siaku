@@ -193,7 +193,7 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconUsersGroup}
                         />
                         <NavLink
-                            url="#"
+                            url={route('operators.schedules.index')}
                             active={url.startsWith('/operators/schedules')}
                             title={'Jadwal'}
                             icon={IconCalendar}

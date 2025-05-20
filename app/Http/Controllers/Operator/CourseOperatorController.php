@@ -31,7 +31,7 @@ class CourseOperatorController extends Controller
         return inertia('Operators/Courses/Index', [
             'page_setting' => [
                 'title' => 'Mata Kuliah',
-                'subtitle' => "Menampilkan Mata Kuliah yang ada di Fakultas {$faculty_name} dan program studi {$departement_name}"
+                'subtitle' => "Menampilkan Mata Kuliah yang ada di {$faculty_name} dan program studi {$departement_name}"
             ],
             'courses' => CourseOperatorResource::collection($courses)->additional([
                 'meta' => [
