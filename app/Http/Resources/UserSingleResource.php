@@ -56,7 +56,9 @@ class UserSingleResource extends JsonResource
                 'id' => $this->operator?->id,
                 'employee_number' => $this->operator?->employee_number,
                 'faculty_id' => $this->operator?->faculty_id,
+                'faculty' => $this->operator?->faculty?->name,
                 'departement_id' => $this->operator?->departement_id,
+                'departement' => $this->operator?->departement->name,
             ]),
         ];
     }
