@@ -130,7 +130,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('course_id')}
+                                                onClick={() => onSortable('name')}
                                             >
                                                 Nama Dosen
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">

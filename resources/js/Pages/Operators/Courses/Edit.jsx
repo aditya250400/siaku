@@ -13,8 +13,6 @@ import { toast } from 'sonner';
 
 export default function Edit(props) {
     const { data, setData, post, errors, processing, reset } = useForm({
-        faculty_id: props.course.faculty_id ?? null,
-        departement_id: props.course.departement_id ?? null,
         teacher_id: props.course.teacher_id ?? null,
         name: props.course.name ?? '',
         credit: props.course.creadit ?? 1,
@@ -68,53 +66,6 @@ export default function Edit(props) {
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
                                     {errors.name && <InputError message={errors.name} />}
-                                </div>
-                                <div className="col-span-full">
-                                    <Label htmlFor="faculty_id">Nama Fakultas</Label>
-                                    <Select
-                                        defaultValue={data.faculty_id}
-                                        onValueChange={(value) => setData('faculty_id', value)}
-                                        id="faculty_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.faculties.find((faculty) => faculty.value == data.faculty_id)
-                                                    ?.label ?? 'Pilih fakultas'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.faculties.map((faculty, index) => (
-                                                    <SelectItem key={index} value={faculty.value}>
-                                                        {faculty.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.faculty_id && <InputError message={errors.faculty_id} />}
-                                </div>
-                                <div className="col-span-full">
-                                    <Label htmlFor="departement_id">Program Studi</Label>
-                                    <Select
-                                        defaultValue={data.departement_id}
-                                        onValueChange={(value) => setData('departement_id', value)}
-                                        id="departement_id"
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue>
-                                                {props.departements.find(
-                                                    (departement) => departement.value == data.departement_id,
-                                                )?.label ?? 'Pilih program studi'}
-                                            </SelectValue>
-                                            <SelectContent>
-                                                {props.departements.map((departement, index) => (
-                                                    <SelectItem key={index} value={departement.value}>
-                                                        {departement.label}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </SelectTrigger>
-                                    </Select>
-                                    {errors.departement_id && <InputError message={errors.departement_id} />}
                                 </div>
                                 <div className="col-span-full">
                                     <Label htmlFor="teacher_id">Dosen</Label>

@@ -66,7 +66,7 @@ class Course extends Model
                 'departement_id' => $query->join('departements', 'courses.departement_id', '=', 'departements.id')
                     ->orderBy('departements.name', $sorts['direction']),
                 'name' => $query
-                    ->leftJoin('teachers', 'teachers_id', '=', 'courses.teacher_id')
+                    ->leftJoin('teachers', 'teachers.id', '=', 'courses.teacher_id')
                     ->leftJoin('users', 'teachers.user_id', '=', 'users.id')
                     ->orderBy('users.name', $sorts['direction']),
                 default => $query->orderBy($sorts['field'], $sorts['direction'])

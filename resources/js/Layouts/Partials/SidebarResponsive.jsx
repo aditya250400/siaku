@@ -187,8 +187,8 @@ export default function SidebarResponsive({ url, auth }) {
                             icon={IconDoor}
                         />
                         <NavLink
-                            url="#"
-                            active={url.startsWith('/operators/teachers')}
+                            url={route('operators.courses.index')}
+                            active={url.startsWith('/operators/courses')}
                             title={'Mata Kuliah'}
                             icon={IconUsersGroup}
                         />

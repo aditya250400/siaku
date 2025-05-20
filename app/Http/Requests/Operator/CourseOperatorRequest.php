@@ -4,14 +4,8 @@ namespace App\Http\Requests\Operator;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClassroomOperatorRequest extends FormRequest
+class CourseOperatorRequest extends FormRequest
 {
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -28,16 +22,20 @@ class ClassroomOperatorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'academic_year_id' => 'required|exists:academic_years,name',
+            'teacher_id' => 'required|exists:users,id',
             'name' => 'required|string|min:3|max:255',
+            'credit' => 'required|integer',
+            'semester' => 'required|integer',
         ];
     }
 
     public function attributes()
     {
         return [
-            'academic_year_id' => 'Tahun Ajaran',
-            'name' => 'Nama Kelas',
+            'teacher_id' => 'Dosen',
+            'name' => 'Nama',
+            'credit' => 'Satuan Kredit Semester (SKS)',
+            'semester' => 'Semester'
         ];
     }
 }
