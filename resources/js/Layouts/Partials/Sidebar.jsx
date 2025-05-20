@@ -175,7 +175,7 @@ export default function Sidebar({ auth, url }) {
                             icon={IconUsers}
                         />
                         <NavLink
-                            url="#"
+                            url={route('operators.teachers.index')}
                             active={url.startsWith('/operators/teachers')}
                             title={'Dosen'}
                             icon={IconUsersGroup}
@@ -189,7 +189,7 @@ export default function Sidebar({ auth, url }) {
                         />
                         <NavLink
                             url="#"
-                            active={url.startsWith('/operators/teachers')}
+                            active={url.startsWith('/operators/courses')}
                             title={'Mata Kuliah'}
                             icon={IconUsersGroup}
                         />
