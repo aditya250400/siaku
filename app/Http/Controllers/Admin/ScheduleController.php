@@ -156,6 +156,7 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         try {
+            $schedule->studyPlans()->detach($schedule);
 
             $schedule->delete();
             flashMessage(MessageType::DELETED->message('Jadwal'));

@@ -53,7 +53,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                         <div className="hidden lg:mx-10 lg:block">
                                             <div className="spac-x-4 flex">
                                                 <NavigationMenu
-                                                    url="#"
+                                                    url={route('students.dashboard')}
                                                     active={url.startsWith('/students/dashboard')}
                                                     title="Dashboard"
                                                 />
@@ -63,7 +63,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                                     title="Jadwal"
                                                 />
                                                 <NavigationMenu
-                                                    url="#"
+                                                    url={route('students.study-plans.index')}
                                                     active={url.startsWith('/students/study-plans')}
                                                     title="Kartu Rencana Study"
                                                 />
@@ -142,9 +142,8 @@ export default function HeaderStudentLayout({ url, auth }) {
 
                         <Disclosure.Panel className="lg:hidden">
                             <div className="space-y-1 px-2 pb-3 pt-2">
-                                <Disclosure.Button
-                                    as="a"
-                                    href="#"
+                                <Link
+                                    href={route('students.dashboard')}
                                     className={cn(
                                         url.startsWith('/students/dashboard')
                                             ? 'bg-blue-500 text-white'
@@ -153,9 +152,8 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     )}
                                 >
                                     Dashboard
-                                </Disclosure.Button>
-                                <Disclosure.Button
-                                    as="a"
+                                </Link>
+                                <Link
                                     href="#"
                                     className={cn(
                                         url.startsWith('/students/schedules')
@@ -165,10 +163,9 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     )}
                                 >
                                     Jadwal
-                                </Disclosure.Button>
-                                <Disclosure.Button
-                                    as="a"
-                                    href="#"
+                                </Link>
+                                <Link
+                                    href={route('students.study-plans.index')}
                                     className={cn(
                                         url.startsWith('/students/study-plans')
                                             ? 'bg-blue-500 text-white'
@@ -177,9 +174,8 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     )}
                                 >
                                     Kartu Rencana Studi
-                                </Disclosure.Button>
-                                <Disclosure.Button
-                                    as="a"
+                                </Link>
+                                <Link
                                     href="#"
                                     className={cn(
                                         url.startsWith('/students/study-results')
@@ -189,9 +185,8 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     )}
                                 >
                                     Kartu Hasil Studi
-                                </Disclosure.Button>
-                                <Disclosure.Button
-                                    as="a"
+                                </Link>
+                                <Link
                                     href="#"
                                     className={cn(
                                         url.startsWith('/students/fees')
@@ -201,7 +196,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     )}
                                 >
                                     Pembayaran
-                                </Disclosure.Button>
+                                </Link>
                             </div>
                             <div className="pb-3 pt-4">
                                 <div className="flex items-center px-5">
@@ -218,16 +213,16 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     </div>
                                 </div>
                                 <div className="mt-3 space-y-1 px-2">
-                                    <Disclosure.Button
-                                        url={route('logout')}
+                                    <Link
+                                        href={route('logout')}
                                         method="post"
                                         as="button"
                                         className={
-                                            'block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-blue-500'
+                                            'block w-full rounded-md px-3 py-2 text-start text-base font-medium text-white hover:bg-blue-500'
                                         }
                                     >
                                         Logout
-                                    </Disclosure.Button>
+                                    </Link>
                                 </div>
                             </div>
                         </Disclosure.Panel>
