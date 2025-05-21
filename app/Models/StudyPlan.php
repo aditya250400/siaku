@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\StudyPlanStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class StudyPlan extends Model
@@ -29,5 +30,10 @@ class StudyPlan extends Model
     public function schedules()
     {
         return $this->belongsToMany(Schedule::class, 'study_plan_schedule')->withTimestamps();
+    }
+
+    public function scopeApproved(Builder $query)
+    {
+        $query->where('status', StudyPlanStatus::APPROVED->value);
     }
 }

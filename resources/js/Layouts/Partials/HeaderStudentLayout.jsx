@@ -58,7 +58,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                                     title="Dashboard"
                                                 />
                                                 <NavigationMenu
-                                                    url="#"
+                                                    url={route('students.schedules.index')}
                                                     active={url.startsWith('/students/schedules')}
                                                     title="Jadwal"
                                                 />
@@ -154,7 +154,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     Dashboard
                                 </Link>
                                 <Link
-                                    href="#"
+                                    href={route('students.schedules.index')}
                                     className={cn(
                                         url.startsWith('/students/schedules')
                                             ? 'bg-blue-500 text-white'

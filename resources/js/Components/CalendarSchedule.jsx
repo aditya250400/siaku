@@ -41,7 +41,7 @@ export default function CalendarSchedule({ days, schedules, student = null }) {
                 >
                     <div className="grid grid-cols-7 text-sm leading-6 text-foreground sm:hidden">
                         {days.map((day, index) => (
-                            <button type="button" className="flex flex-col items-center pb-3 pt-2">
+                            <button key={index} type="button" className="flex flex-col items-center pb-3 pt-2">
                                 {day}
                             </button>
                         ))}
@@ -50,7 +50,7 @@ export default function CalendarSchedule({ days, schedules, student = null }) {
                     <div className="-mr-px hidden grid-cols-7 divide-x divide-gray-100 border-r border-gray-100 text-sm leading-6 text-foreground sm:grid">
                         <div className="col-end-1 w-14" />
                         {days.map((day, index) => (
-                            <div className="flex items-center justify-center py-3">
+                            <div key={index} className="flex items-center justify-center py-3">
                                 <span>{day}</span>
                             </div>
                         ))}
@@ -129,6 +129,30 @@ export default function CalendarSchedule({ days, schedules, student = null }) {
                             <div>
                                 <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-foreground">
                                     17.00
+                                </div>
+                            </div>
+                            <div />
+                            <div>
+                                <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-foreground">
+                                    18.00
+                                </div>
+                            </div>
+                            <div />
+                            <div>
+                                <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-foreground">
+                                    19.00
+                                </div>
+                            </div>
+                            <div />
+                            <div>
+                                <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-foreground">
+                                    20.00
+                                </div>
+                            </div>
+                            <div />
+                            <div>
+                                <div className="sticky left-0 z-20 -ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-foreground">
+                                    21.00
                                 </div>
                             </div>
                             <div />
