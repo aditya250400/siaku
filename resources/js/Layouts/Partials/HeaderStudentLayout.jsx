@@ -73,7 +73,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                                     title="Kartu Hasil Studi"
                                                 />
                                                 <NavigationMenu
-                                                    url="#"
+                                                    url={route('students.fees.index')}
                                                     active={url.startsWith('/students/fees')}
                                                     title="Pembayaran"
                                                 />
@@ -187,7 +187,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                     Kartu Hasil Studi
                                 </Link>
                                 <Link
-                                    href="#"
+                                    href={route('students.fees.index')}
                                     className={cn(
                                         url.startsWith('/students/fees')
                                             ? 'bg-blue-500 text-white'

@@ -51,7 +51,7 @@ class HandleInertiaRequests extends Middleware
                 ? Fee::query()->where('student_id', $authUser->student->id)
                 ->where('academic_year_id', activeAcademicYear()->id)
                 ->where('semester', $authUser->student->semester)
-                ->where('status', FeeStatus::SUCCESS->value)
+                ->where('status', FeeStatus::SUCCESS->value)->first()
                 : null,
             'ziggy' => fn() => [
                 ...(new Ziggy)->toArray(),
