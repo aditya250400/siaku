@@ -14,6 +14,7 @@ import { formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { IconArrowLeft, IconArrowsDownUp, IconBuilding, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
+import Approved from './Approved';
 import Detail from './Detail';
 
 export default function Index(props) {
@@ -205,6 +206,14 @@ export default function Index(props) {
                                                     <Detail
                                                         schedules={studyPlan.schedules}
                                                         name={studyPlan.student.name}
+                                                    />
+                                                    <Approved
+                                                        name={studyPlan.student.name}
+                                                        statuses={props.statuses}
+                                                        action={route('operators.study-plans.approve', [
+                                                            props.student,
+                                                            studyPlan,
+                                                        ])}
                                                     />
                                                 </div>
                                             </TableCell>
