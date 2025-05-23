@@ -22,13 +22,13 @@ class CourseClassroomController extends Controller
             ->where('departement_id', $classroom->departement_id)
             ->where('classroom_id', $classroom->classroom_id)
             ->filter(request()->only(['search']))
-            ->whereHas('user', function($query) {
+            ->whereHas('user', function ($query) {
                 $query->whereHas('roles', fn($query) => $query->where('name', 'Student'));
             })
-            ->whereHas('studyPlans', function($query) use ($schedule){
+            ->whereHas('studyPlans', function ($query) use ($schedule) {
                 $query->where('academic_year_id', activeAcademicYear()->id)->approved()
-                ->whereHas('schedules', fn($query) => $query->where('schedule_id', $schedule->id));
+                    ->whereHas('schedules', fn($query) => $query->where('schedule_id', $schedule->id));
             })
-
+            ->with(['user', 'attendances', 'grades']);
     }
 }
