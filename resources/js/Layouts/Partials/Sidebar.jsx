@@ -137,7 +137,7 @@ export default function Sidebar({ auth, url }) {
                 {auth.user.roles.some((role) => ['Teacher'].includes(role)) && (
                     <>
                         <NavLink
-                            url="#"
+                            url={route('teachers.dashboard')}
                             active={url.startsWith('/teachers/dashboard')}
                             title={'Dashboard'}
                             icon={IconLayout2}
@@ -145,13 +145,13 @@ export default function Sidebar({ auth, url }) {
                         <div className="px-3 py-1 text-base font-medium text-white">Akademik</div>
 
                         <NavLink
-                            url="#"
+                            url={route('teachers.courses.index')}
                             active={url.startsWith('/teachers/courses')}
                             title={'Mata Kuliah'}
                             icon={IconBooks}
                         />
                         <NavLink
-                            url="#"
+                            url={route('teachers.courses.index')}
                             active={url.startsWith('/teachers/schedules')}
                             title={'Jadwal'}
                             icon={IconCalendar}

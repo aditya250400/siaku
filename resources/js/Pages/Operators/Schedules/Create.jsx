@@ -48,7 +48,7 @@ export default function Create(props) {
                         icon={IconCalendar}
                     />
                     <Button asChild variant="blue" size="xl" className="w-full lg:w-auto">
-                        <Link href={route('admin.schedules.index')}>
+                        <Link href={route('operators.schedules.index')}>
                             <IconArrowLeft className="size-4" /> Kembali
                         </Link>
                     </Button>

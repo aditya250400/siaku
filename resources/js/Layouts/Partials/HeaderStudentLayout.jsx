@@ -128,7 +128,7 @@ export default function HeaderStudentLayout({ url, auth }) {
                                                 </DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem asChild>
-                                                    <Link url={route('logout')} method="post" as="button">
+                                                    <Link href={route('logout')} method="post" as="button">
                                                         <IconLogout2 />
                                                         Logout
                                                     </Link>
