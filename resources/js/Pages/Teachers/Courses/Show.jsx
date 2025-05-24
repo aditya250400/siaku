@@ -8,8 +8,8 @@ import { IconDoor } from '@tabler/icons-react';
 export default function Show(props) {
     return (
         <>
-            <div className="flex flex-col w-full pb-32">
-                <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+            <div className="flex w-full flex-col pb-32">
+                <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                     <HeaderTitle
                         title={props.page_setting.title}
                         subtitle={props.page_setting.subtitle}
@@ -33,11 +33,11 @@ export default function Show(props) {
                                 {props.course.schedules.map((schedule, index) => (
                                     <li key={index} className="overflow-hidden rounded-xl">
                                         <Link
-                                            href={route('teachers.classrooms.index', {
-                                                course: schedule.course.code,
-                                                classroom: schedule.classroom.slug,
-                                            })}
-                                            className="flex flex-col p-6 gap-x-4 bg-gray-50 hover:bg-blue-50"
+                                            href={route('teachers.classrooms.index', [
+                                                schedule.course,
+                                                schedule.classroom,
+                                            ])}
+                                            className="flex flex-col gap-x-4 bg-gray-50 p-6 hover:bg-blue-50"
                                         >
                                             <div className="text-lg font-bold leading-relaxed text-foreground">
                                                 {schedule.classroom.name}

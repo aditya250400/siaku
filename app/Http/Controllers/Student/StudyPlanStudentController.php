@@ -50,12 +50,14 @@ class StudyPlanStudentController extends Controller
         if (!activeAcademicYear()) return back();
 
         $schedules = Schedule::query()
-            ->where('faculty_id', auth()->user()->student->faculty_id)
-            ->where('departement_id', auth()->user()->student->departement_id)
-            ->where('academic_year_id', activeAcademicYear()->id)
+            ->where('schedules.faculty_id', auth()->user()->student->faculty_id)
+            ->where('schedules.departement_id', auth()->user()->student->departement_id)
+            ->where('schedules.academic_year_id', activeAcademicYear()->id)
             ->with(['course', 'classroom'])
             ->withCount(['studyPlans as taken_quota' => fn($query) => $query->where('academic_year_id', activeAcademicYear()->id)])
-            ->orderByDesc('day_of_week')->get();
+            ->leftJoin('classrooms', 'schedules.classroom_id', '=', 'classrooms.id')
+            ->orderBy('classrooms.name')
+            ->get();
 
         if ($schedules->isEmpty()) {
             flashMessage('Tidak ada jadwal tersedia...', 'warning');

@@ -18,7 +18,7 @@ Route::prefix('teachers')->middleware(['auth', 'role:Teacher'])->group(function 
 
     // course class room
     Route::controller(CourseClassroomController::class)->group(function () {
-        Route::get('courses/{course:code}/classrooms/{classroom:slug}', 'index')->name('teachers.classrooms.index');
-        Route::put('courses/{course:code}/classrooms/{classroom:slug}/synchronize', 'sync')->name('teachers.classrooms.sync');
+        Route::get('courses/{course}/classrooms/{classroom}', 'index')->name('teachers.classrooms.index');
+        Route::put('courses/{course}/classrooms/{classroom}/synchronize', 'sync')->name('teachers.classrooms.sync');
     });
 });

@@ -24,7 +24,7 @@ class CourseStudentClassroomResource extends JsonResource
                 'email' => $this->user?->email,
                 'avatar' => $this->user?->avatar ? Storage::url($this->user?->avatar) : null,
             ]),
-            'attendance' => $this->whenLoaded('attendance', CourseAttendanceResource::collection($this->attendances)),
+            'attendances' => $this->whenLoaded('attendances', CourseAttendanceResource::collection($this->attendances)),
             'grades' => $this->whenLoaded('grades', CourseGradeResource::collection($this->grades)),
             'total' => [
                 'attendances_count' => $attendances_count = $this->attendances_count ?? 0,
