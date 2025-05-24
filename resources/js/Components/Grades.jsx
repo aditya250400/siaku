@@ -14,7 +14,7 @@ export default function Grades({ studyResult, grades, name = null }) {
             <SheetContent side="top">
                 <SheetHeader>
                     <SheetTitle>Detail Kartu Hasil Studi Mahasiswa {name}</SheetTitle>
-                    <SheetDescription>Deatil kartu hasil studi mahasiswa</SheetDescription>
+                    <SheetDescription>Detail kartu hasil studi mahasiswa</SheetDescription>
                 </SheetHeader>
                 <Table className="w-full border">
                     <TableHeader>

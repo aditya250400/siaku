@@ -164,6 +164,7 @@ class CourseClassroomController extends Controller
                 return $attendance;
             }, $request->attendances);
 
+
             $grades = array_map(function ($grade) {
                 $grade['created_at'] = Carbon::now();
                 $grade['updated_at'] = Carbon::now();
@@ -180,6 +181,7 @@ class CourseClassroomController extends Controller
                 ->whereIn('student_id', $studentIds)
                 ->get();
 
+
             Attendance::insert($attendances);
             Grade::insert($grades);
 
@@ -194,18 +196,20 @@ class CourseClassroomController extends Controller
                         )
                     ),
                     utsPercentage: (
-                        $this->calculateTaskPercentage(
+                        $this->calculateUtsPercentage(
                             $this->getGradeCount($result->student_id, $course->id, $classroom->id, 'uts'),
                         )
                     ),
                     uasPercentage: (
-                        $this->calculateTaskPercentage(
+                        $this->calculateUasPercentage(
                             $this->getGradeCount($result->student_id, $course->id, $classroom->id, 'uas'),
                         )
                     ),
                 );
 
-                $grades = StudyResultGrade::updateOrCreate([
+
+
+                StudyResultGrade::updateOrCreate([
                     'study_result_id' => $result->id,
                     'course_id' => $course->id,
 

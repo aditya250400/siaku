@@ -20,6 +20,7 @@ import {
     IconPencil,
     IconPlus,
     IconRefresh,
+    IconSchool,
     IconTrash,
     IconUsers,
 } from '@tabler/icons-react';
@@ -243,6 +244,12 @@ export default function Index(props) {
                                                         <Link href={route('operators.fees.index', [student])}>
                                                             <IconMoneybag size="4" />
                                                             Lihat Pembayaran
+                                                        </Link>
+                                                    </Button>
+                                                    <Button variant="yellow" size="sm" asChild>
+                                                        <Link href={route('operators.study-results.index', [student])}>
+                                                            <IconSchool size="4" />
+                                                            Lihat KHS
                                                         </Link>
                                                     </Button>
                                                     <Button variant="blue" size="sm" asChild>
