@@ -22,7 +22,7 @@ export default function Index(props) {
                 <Card>
                     <CardContent className="p-4">
                         <CalendarSchedule days={days} schedules={schedules} />
-                        <div className="flex sm:hidden">
+                        <div className="flex lg:hidden">
                             <Alert variant="destructive">
                                 <AlertDescription>Jadwal hanya bisa dilihat dalam mode desktop</AlertDescription>
                             </Alert>

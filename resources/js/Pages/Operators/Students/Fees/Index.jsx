@@ -1,9 +1,7 @@
-import AlertAction from '@/Components/AlertAction';
 import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
 import ShowFilter from '@/Components/ShowFilter';
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -11,22 +9,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import UseFilter from '@/hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { deleteAction, formatDateIndo } from '@/lib/utils';
+import { formatDateIndo } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconBuilding,
-    IconMoneybag,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-    IconUsers,
-} from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowsDownUp, IconMoneybag, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: students, meta, links } = props.students;
+    const { data: fees, meta, links } = props.fees;
     const [params, setParams] = useState(props.state);
 
     const onSortable = (field) => {
@@ -37,9 +26,9 @@ export default function Index(props) {
         });
     };
     UseFilter({
-        route: route('operators.students.index'),
+        route: route('operators.fees.index', props.student),
         values: params,
-        only: ['students'],
+        only: ['fees'],
     });
 
     return (
@@ -49,11 +38,11 @@ export default function Index(props) {
                     <HeaderTitle
                         title={props.page_setting.title}
                         subtitle={props.page_setting.subtitle}
-                        icon={IconUsers}
+                        icon={IconMoneybag}
                     />
                     <Button asChild variant="blue" size="xl" className="w-full lg:w-auto">
-                        <Link href={route('operators.students.create')}>
-                            <IconPlus className="size-4" /> Tambah
+                        <Link href={route('operators.fees.index', props.student)}>
+                            <IconArrowLeft className="size-4" /> Kembali
                         </Link>
                     </Button>
                 </div>
@@ -90,11 +79,11 @@ export default function Index(props) {
                     </CardHeader>
 
                     <CardContent className="[&-td]: p-0 [&-td]:whitespace-nowrap [&-th]:px-6">
-                        {students.length === 0 ? (
+                        {fees.length === 0 ? (
                             <EmptyState
-                                icon={IconUsers}
-                                title="Tidak ada mahasiswa"
-                                subtitle="Mulailah dengan membuat mahasiswa baru"
+                                icon={IconMoneybag}
+                                title="Tidak ada pembayaran"
+                                subtitle="Mulailah dengan membuat pembayaran baru"
                             />
                         ) : (
                             <Table className="w-full">
@@ -116,9 +105,9 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('name')}
+                                                onClick={() => onSortable('fee_code')}
                                             >
-                                                Nama
+                                                Kode Pembayaran
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
@@ -128,9 +117,9 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('email')}
+                                                onClick={() => onSortable('fee_number')}
                                             >
-                                                Email
+                                                Nomor Pokok Mahasiswa
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
@@ -140,33 +129,9 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('classroom_id')}
+                                                onClick={() => onSortable('academic_year_id')}
                                             >
-                                                Kelas
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('fee_group_id')}
-                                            >
-                                                Golongan UKT
-                                                <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('student_number')}
-                                            >
-                                                Nomor Induk Mahasiswa
+                                                Tahun Akademik
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
@@ -188,9 +153,9 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('batch')}
+                                                onClick={() => onSortable('status')}
                                             >
-                                                Angkatan
+                                                Status
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
@@ -208,62 +173,19 @@ export default function Index(props) {
                                                 </span>
                                             </Button>
                                         </TableHead>
-                                        <TableHead>Aksi</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {students.map((student, index) => (
+                                    {fees.map((fee, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                            <TableCell className="flex items-center gap-2">
-                                                <Avatar>
-                                                    <AvatarImage src={student.user?.avatar} />
-                                                    <AvatarFallback>
-                                                        {student.user?.name.substring(0, 1)}
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                                <span>{student.user?.name}</span>
-                                            </TableCell>
-                                            <TableCell>{student.user?.email}</TableCell>
-                                            <TableCell>{student.classroom?.name}</TableCell>
-                                            <TableCell>{student.feeGroup.group}</TableCell>
-                                            <TableCell>{student.student_number}</TableCell>
-                                            <TableCell>{student.semester}</TableCell>
-                                            <TableCell>{student.batch}</TableCell>
-                                            <TableCell>{formatDateIndo(student.created_at)}</TableCell>
-                                            <TableCell>
-                                                <div className="flex items-center gap-x-1">
-                                                    <Button variant="slate" size="sm" asChild>
-                                                        <Link href={route('operators.study-plans.index', [student])}>
-                                                            <IconBuilding size="4" />
-                                                            Lihat KRS
-                                                        </Link>
-                                                    </Button>
-                                                    <Button variant="green" size="sm" asChild>
-                                                        <Link href={route('operators.fees.index', [student])}>
-                                                            <IconMoneybag size="4" />
-                                                            Lihat Pembayaran
-                                                        </Link>
-                                                    </Button>
-                                                    <Button variant="blue" size="sm" asChild>
-                                                        <Link href={route('operators.students.edit', [student])}>
-                                                            <IconPencil size="4" />
-                                                            Edit
-                                                        </Link>
-                                                    </Button>
-                                                    <AlertAction
-                                                        trigger={
-                                                            <Button variant="red" size="sm">
-                                                                <IconTrash className="size-4" />
-                                                                Delete
-                                                            </Button>
-                                                        }
-                                                        action={() =>
-                                                            deleteAction(route('operators.students.destroy', [student]))
-                                                        }
-                                                    />
-                                                </div>
-                                            </TableCell>
+                                            <TableCell>{fee.fee_code}</TableCell>
+                                            <TableCell>{fee.student.student_number}</TableCell>
+                                            <TableCell>{fee.feeGroup.group}</TableCell>
+                                            <TableCell>{fee.academicYear.name}</TableCell>
+                                            <TableCell>{fee.semester}</TableCell>
+                                            <TableCell>{fee.status}</TableCell>
+                                            <TableCell>{formatDateIndo(fee.created_at)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -273,7 +195,7 @@ export default function Index(props) {
                     <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                         <p className="text-sm text-muted-foreground">
                             Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
-                            {meta.total} mahasiswa
+                            {meta.total} pembayaran
                         </p>
                         <div className="overflow-x-auto">
                             {meta.has_pages && <PaginationTable meta={meta} links={links} />}
