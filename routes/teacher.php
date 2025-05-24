@@ -3,6 +3,7 @@
 use App\Http\Controllers\Teacher\CourseClassroomController;
 use App\Http\Controllers\Teacher\CourseTeacherController;
 use App\Http\Controllers\Teacher\DashboardTeacherController;
+use App\Http\Controllers\Teacher\ScheduleTeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('teachers')->middleware(['auth', 'role:Teacher'])->group(function () {
@@ -21,4 +22,7 @@ Route::prefix('teachers')->middleware(['auth', 'role:Teacher'])->group(function 
         Route::get('courses/{course}/classrooms/{classroom}', 'index')->name('teachers.classrooms.index');
         Route::put('courses/{course}/classrooms/{classroom}/synchronize', 'sync')->name('teachers.classrooms.sync');
     });
+
+    // schedule
+    Route::get('schedules', ScheduleTeacherController::class)->name('teachers.schedules.index');
 });
