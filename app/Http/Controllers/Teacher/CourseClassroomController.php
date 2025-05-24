@@ -26,7 +26,8 @@ class CourseClassroomController extends Controller
                 $query->whereHas('roles', fn($query) => $query->where('name', 'Student'));
             })
             ->whereHas('studyPlans', function ($query) use ($schedule) {
-                $query->where('academic_year_id', activeAcademicYear()->id)->approved()
+                $query->where('academic_year_id', activeAcademicYear()->id)
+                    ->approved()
                     ->whereHas('schedules', fn($query) => $query->where('schedule_id', $schedule->id));
             })
             ->with(['user', 'attendances', 'grades']);
