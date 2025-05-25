@@ -11,17 +11,51 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import UseFilter from '@/hooks/UseFilter';
 import StudentLayout from '@/Layouts/StudentLayout';
-import { FEESTATUSVARIANT, formatDateIndo, formatToRupiah } from '@/lib/utils';
-import { Link, usePage } from '@inertiajs/react';
-import { IconArrowsDownUp, IconEye, IconMoneybag, IconRefresh } from '@tabler/icons-react';
+import { feeCodeGenerator, FEESTATUSVARIANT, formatDateIndo, formatToRupiah } from '@/lib/utils';
+import { router, usePage } from '@inertiajs/react';
+import { IconArrowsDownUp, IconMoneybag, IconRefresh } from '@tabler/icons-react';
+import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Index(props) {
     const { data: fees, meta, links } = props.fees;
     const [params, setParams] = useState(props.state);
 
     const auth = usePage().props.auth.user;
-    console.log(props);
+
+    const handlePayment = async () => {
+        try {
+            const response = await axios.post(route('payments.create'), {
+                fee_code: feeCodeGenerator(),
+                gross_amount: auth.student.feeGroup.amount,
+                first_name: auth.name,
+                last_name: '',
+                email: auth.email,
+            });
+
+            const snapToken = response.data.snapToken;
+
+            window.snap.pay(snapToken, {
+                onSuccess: function (result) {
+                    toast['success']('Pembayaran Success');
+                    router.get(route('payments.success'));
+                },
+                onPending: function (result) {
+                    toast['warning']('Pembayaran Pending');
+                },
+                onError: function (error) {
+                    toast['error'](`Kesalahan Pembayaran ${error}`);
+                },
+                onClose: function () {
+                    toast['info']('Pembayaran ditutup');
+                },
+            });
+        } catch (error) {
+            toast['error'](`Kesalahan pembayaran ${error}`);
+            console.log(error);
+        }
+    };
 
     const onSortable = (field) => {
         setParams({
@@ -57,47 +91,46 @@ export default function Index(props) {
                             </Alert>
                         </div>
                     )}
-                    {(props.fee && props.fee.status !== 'Sukses') ||
-                        (!props.fee && (
-                            <Card>
-                                <CardContent className="space-y-20 p-6">
-                                    <div>
-                                        <Table>
-                                            <TableHeader>
-                                                <TableRow>
-                                                    <TableHead>Nama</TableHead>
-                                                    <TableHead>Nomor Induk Mahasiswa</TableHead>
-                                                    <TableHead>Semester</TableHead>
-                                                    <TableHead>Kelas</TableHead>
-                                                    <TableHead>Program Studi</TableHead>
-                                                    <TableHead>Program Fakultas</TableHead>
-                                                    <TableHead>Golongan UKT</TableHead>
-                                                    <TableHead>Total Tagihan</TableHead>
-                                                    <TableHead>Aksi</TableHead>
-                                                </TableRow>
-                                            </TableHeader>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell>{auth.name}</TableCell>
-                                                    <TableCell>{auth.student.student_number}</TableCell>
-                                                    <TableCell>{auth.student.semester}</TableCell>
-                                                    <TableCell>{auth.student.classroom.name}</TableCell>
-                                                    <TableCell>{auth.student.departement.name}</TableCell>
-                                                    <TableCell>{auth.student.faculty.name}</TableCell>
-                                                    <TableCell>{auth.student.feeGroup.group}</TableCell>
-                                                    <TableCell>
-                                                        {formatToRupiah(auth.student.feeGroup.amount)}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Button variant="blue">Bayar</Button>
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                        </Table>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                    {props.fee !== 'Sukses' && (
+                        <Card>
+                            <CardContent className="space-y-20 p-6">
+                                <div>
+                                    <Table>
+                                        <TableHeader>
+                                            <TableRow>
+                                                <TableHead>Nama</TableHead>
+                                                <TableHead>Nomor Induk Mahasiswa</TableHead>
+                                                <TableHead>Semester</TableHead>
+                                                <TableHead>Kelas</TableHead>
+                                                <TableHead>Program Studi</TableHead>
+                                                <TableHead>Program Fakultas</TableHead>
+                                                <TableHead>Golongan UKT</TableHead>
+                                                <TableHead>Total Tagihan</TableHead>
+                                                <TableHead>Aksi</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell>{auth.name}</TableCell>
+                                                <TableCell>{auth.student.student_number}</TableCell>
+                                                <TableCell>{auth.student.semester}</TableCell>
+                                                <TableCell>{auth.student.classroom.name}</TableCell>
+                                                <TableCell>{auth.student.departement.name}</TableCell>
+                                                <TableCell>{auth.student.faculty.name}</TableCell>
+                                                <TableCell>{auth.student.feeGroup.group}</TableCell>
+                                                <TableCell>{formatToRupiah(auth.student.feeGroup.amount)}</TableCell>
+                                                <TableCell>
+                                                    <Button onClick={handlePayment} variant="blue">
+                                                        Bayar
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    )}
                     {/* Filters */}
 
                     <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center">
@@ -237,17 +270,6 @@ export default function Index(props) {
                                         </TableCell>
 
                                         <TableCell>{formatDateIndo(fee.created_at)}</TableCell>
-
-                                        <TableCell>
-                                            <div className="flex items-center gap-x-1">
-                                                <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('students.fees.show', [fee])}>
-                                                        <IconEye size="4" />
-                                                        Lihat Detail
-                                                    </Link>
-                                                </Button>
-                                            </div>
-                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

@@ -10,7 +10,6 @@ export default function Index(props) {
     const days = props.days;
     const auth = usePage().props.auth.user;
 
-    console.log(schedules);
     return (
         <>
             <div className="flex w-full flex-col pb-32">

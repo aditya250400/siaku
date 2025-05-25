@@ -15,7 +15,15 @@ class FeeStudentController extends Controller
             ->where('student_id', auth()->user()->student->id)
             ->where('academic_year_id', activeAcademicYear()->id)
             ->where('semester', auth()->user()->student->semester)
-            ->first();
+            ->exists()
+
+            ?
+
+            Fee::query()
+            ->where('student_id', auth()->user()->student->id)
+            ->where('academic_year_id', activeAcademicYear()->id)
+            ->where('semester', auth()->user()->student->semester)
+            ->first() : null;
 
 
         $fees = Fee::query()

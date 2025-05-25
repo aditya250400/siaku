@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::controller(PaymentController::class)->group(function () {
+    Route::post('payments', 'create')->name('payments.create');
+    Route::post('payments/callback', 'callback')->name('payments.callback');
+    Route::get('payments/success', 'succecc')->name('payments.succecc');
 });
 
 require __DIR__ . '/auth.php';

@@ -17,8 +17,6 @@ export default function Index(props) {
     const { data: studyResults, meta, links } = props.studyResults;
     const [params, setParams] = useState(props.state);
 
-    console.log(props.studyResults);
-
     return (
         <>
             <div className="flex w-full flex-col pb-32">

@@ -1,4 +1,5 @@
 import CardStat from '@/Components/CardStat';
+import { formatToRupiah } from '@/lib/utils';
 import { IconChecks, IconCreditCard, IconX } from '@tabler/icons-react';
 import StudentLayout from '../../Layouts/StudentLayout';
 
@@ -42,7 +43,7 @@ export default function Dashboard(props) {
                         iconClassName: 'text-white',
                     }}
                 >
-                    <div className="text-2xl font-bold">{props.count.total_payments}</div>
+                    <div className="text-2xl font-bold">{formatToRupiah(props.count.total_payments)}</div>
                 </CardStat>
             </div>
         </div>
