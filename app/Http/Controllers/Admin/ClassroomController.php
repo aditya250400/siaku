@@ -10,10 +10,22 @@ use App\Models\Classroom;
 use App\Models\Departement;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Throwable;
 
-class ClassroomController extends Controller
+class ClassroomController extends Controller implements HasMiddleware
+
+
 {
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('validateDepartement', only: ['store', 'update']),
+        ];
+    }
+
     public function index()
     {
         $classrooms = Classroom::query()

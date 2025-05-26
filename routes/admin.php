@@ -53,7 +53,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
 
 
     // classroom
-    Route::controller(ClassroomController::class)->group(function () {
+    Route::controller(ClassroomController::class)->middleware(['checkActiveAcademicYear'])->group(function () {
         Route::get('classrooms', 'index')->name('admin.classrooms.index');
         Route::get('classrooms/create', 'create')->name('admin.classrooms.create');
         Route::post('classrooms/create', 'store')->name('admin.classrooms.store');

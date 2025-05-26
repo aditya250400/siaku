@@ -7,14 +7,28 @@ use App\Http\Resources\Operator\StudyResultOperatorResource;
 use App\Models\Student;
 use App\Models\StudyResult;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class StudyResultStudentController extends Controller
+class StudyResultStudentController extends Controller implements HasMiddleware
 {
+
+    public static function middleware()
+    {
+        return [
+            new Middleware('checkActiveAcademicYear'),
+            new Middleware('checkFeeStudent'),
+
+        ];
+    }
+
     /**
      * Handle the incoming request.
      */
     public function __invoke()
+
+
     {
         $student = Auth::user()->student;
 

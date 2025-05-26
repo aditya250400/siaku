@@ -12,11 +12,22 @@ use App\Http\Resources\Student\StudyPlanStudentResource;
 use App\Models\Schedule;
 use App\Models\StudyPlan;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class StudyPlanStudentController extends Controller
+class StudyPlanStudentController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('checkActiveAcademicYear', except: ['index']),
+            new Middleware('checkFeeStudent', except: ['index']),
+        ];
+    }
+
+
     public function index()
     {
         $studyPlans = StudyPlan::query()

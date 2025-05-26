@@ -13,12 +13,23 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Traits\HasFile;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
 
-class TeacherController extends Controller
+class TeacherController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('validateDepartement', only: ['store', 'update']),
+        ];
+    }
+
+
+
     use HasFile;
     public function index()
     {

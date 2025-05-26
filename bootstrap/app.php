@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Middleware\CheckActiveAcademicYear;
+use App\Http\Middleware\CheckFeeStudent;
+use App\Http\Middleware\ValidateClassroom;
+use App\Http\Middleware\ValidateCourse;
+use App\Http\Middleware\ValidateMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,11 +21,16 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ])
-            ->validateCsrfTokens(except: [
-                'payments/callback'
-            ])
+            // ->validateCsrfTokens(except: [
+            //     'payments/callback'
+            // ])
             ->alias(aliases: [
                 'role' => RoleMiddleware::class,
+                'checkActiveAcademicYear' => CheckActiveAcademicYear::class,
+                'checkFeeStudent' => CheckFeeStudent::class,
+                'validateClassroom' => ValidateClassroom::class,
+                'validateCourse' => ValidateCourse::class,
+                'validateDepartement' => ValidateMiddleware::class,
             ]);
 
         //
