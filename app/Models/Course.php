@@ -13,6 +13,7 @@ class Course extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
+
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
@@ -33,7 +34,7 @@ class Course extends Model
         return $this->hasMany(Schedule::class);
     }
 
-    public function attendances()
+    public function attednances()
     {
         return $this->hasMany(Attendance::class);
     }
